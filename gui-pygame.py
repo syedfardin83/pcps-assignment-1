@@ -1,5 +1,14 @@
 import pygame
+import random
 pygame.init()
+
+opponent_health = 20
+opponent_attack_factor = 60
+opponent_heal_factor = 10
+
+self_health = 100
+self_attack_factor = 60
+self_heal_factor = 10
 
 window_size = (1000,500)
 
@@ -30,10 +39,17 @@ hunter_image = pygame.image.load('./images/hunter.png')
 hunter_image = pygame.transform.scale(hunter_image,(200,200))
 hunter_image_rect = self_image.get_rect(topleft=(100,window_size[1]-400))
 
+font = pygame.font.SysFont(None, 48)
+
 
 
 
 while not exit_game:
+    self_score_text = font.render(f"SELF HEALTH: {self_health}", True, (255,255,255)) 
+    self_score_text_rect = self_score_text.get_rect(center=(100, 50),topleft=(window_size[0]-330,60)) 
+
+    opponent_score_text = font.render(f"OPPONENT HEALTH: {opponent_health}", True, (255,255,255)) 
+    opponent_score_text_rect = self_score_text.get_rect(center=(100, 50),topleft=(30,60)) 
     for event in pygame.event.get():
         # print(type(event.type))
         if event.type==pygame.QUIT:
@@ -45,14 +61,35 @@ while not exit_game:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if attack_button_rect.collidepoint(event.pos):
                 print("Attack Button clicked!!")
+                print("\n***** ATTACKING... ****")
+                self_attack = int(random.random()*self_attack_factor)
+                opponent_attack = int(random.random()*opponent_attack_factor)
+                net_attack = self_attack-opponent_attack
+                print(f'Attack amount: {self_attack}\nOpponent attack amount: {opponent_attack}\nEffective Attack: {net_attack}')
+                if net_attack<0:
+                    print(f"\n*** Opponent successfully defended your attack ***\n****  You dealt damage of {-1*net_attack} ****")
+                    self_health+=net_attack
+                else:
+                    print(f"\n****  Opponent dealt damage of {net_attack} ****")
+                    opponent_health -= net_attack
             if heal_button_rect.collidepoint(event.pos):
                 print("Heal button clicked!")
+                print("\n***** HEALING... ****")
+                self_heal = int(random.random()*self_heal_factor)
+                opponent_heal = int(random.random()*opponent_heal_factor)
+
+                self_health += self_heal
+                opponent_health += opponent_heal
+
+                print(f"\nYou healed by {self_heal}\nOpponent healed by {opponent_heal}")
 
     gameWindow.blit(background_image,(0,0))
     gameWindow.blit(attack_button_image,attack_button_rect)
     gameWindow.blit(heal_button_image,heal_button_rect)
     gameWindow.blit(self_image,self_image_rect)
     gameWindow.blit(hunter_image,hunter_image_rect)
+    gameWindow.blit(self_score_text,self_score_text_rect)
+    gameWindow.blit(opponent_score_text,opponent_score_text_rect)
 
     pygame.display.flip()
 
