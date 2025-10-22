@@ -52,10 +52,6 @@ while True:
 
         time.sleep(2)
 
-
-
-
-
     else:
         print('********** INVALID INPUT!!  **********')
         time.sleep(2)
