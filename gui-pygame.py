@@ -3,7 +3,7 @@ import random
 pygame.init()
 
 opponent_max_health = 100
-opponent_initial_health = 20
+opponent_initial_health = 100
 opponent_health = opponent_initial_health
 opponent_attack_factor = 60
 opponent_heal_factor = 10
@@ -58,9 +58,6 @@ you_lose_image = pygame.transform.scale(you_lose_image,(400,120))
 you_lose_image_rect = you_lose_image.get_rect(topleft=(320,200))
 
 font = pygame.font.SysFont(None, 48)
-
-
-
 
 while not exit_game:
     self_score_text = font.render(f"SELF HEALTH: {self_health}", True, (255,255,255)) 
