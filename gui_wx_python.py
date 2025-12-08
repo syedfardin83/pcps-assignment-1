@@ -2,10 +2,10 @@ import wx
 import random
 
 
-class GameApp(wx.Frame):
-    def __init__(self):
-        super().__init__(None, title="Game", size=(1000, 500))
-        
+class GameApp:
+    def __init__(self,app):
+        # super().__init__(None, title="Game", size=(1000, 500))
+        self.app  = app
         # Game state variables
         self.opponent_max_health = 100
         self.opponent_initial_health = 100
@@ -32,7 +32,8 @@ class GameApp(wx.Frame):
         self.lose_image_url = './images/you_lose.png'
         
         # Create UI
-        self.panel = wx.Panel(self, style=wx.SIMPLE_BORDER)
+        self.frame = wx.Frame(None, title="Game", size=(1000, 500))
+        self.panel = wx.Panel(self.frame, style=wx.SIMPLE_BORDER)
         self.panel.Bind(wx.EVT_PAINT, self.paint_all)
         
         # Create buttons using images
@@ -65,7 +66,7 @@ class GameApp(wx.Frame):
         self.opponent_health_text.SetFont(wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, 
                                                   wx.FONTWEIGHT_BOLD))
         self.opponent_health_text.SetForegroundColour(wx.Colour(0, 0, 0))
-    
+        self.frame.Show()
     def update_health_displays(self):
         """Update the health text displays"""
         self.player_health_text.SetLabel(f"SELF HEALTH: {self.player_health}")
@@ -179,6 +180,5 @@ class GameApp(wx.Frame):
 if __name__ == '__main__':
     print("Starting!")
     app = wx.App()
-    frame = GameApp()
-    frame.Show()
+    a=GameApp(app)
     app.MainLoop()
