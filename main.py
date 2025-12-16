@@ -1,10 +1,8 @@
 import wx
 import random
 
-
 class GameApp:
     def __init__(self,app):
-        # super().__init__(None, title="Game", size=(1000, 500))
         self.app  = app
         # Game state variables
         self.opponent_max_health = 100
@@ -67,6 +65,7 @@ class GameApp:
                                                   wx.FONTWEIGHT_BOLD))
         self.opponent_health_text.SetForegroundColour(wx.Colour(0, 0, 0))
         self.frame.Show()
+
     def update_health_displays(self):
         """Update the health text displays"""
         self.player_health_text.SetLabel(f"SELF HEALTH: {self.player_health}")
