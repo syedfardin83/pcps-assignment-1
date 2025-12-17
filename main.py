@@ -127,15 +127,15 @@ class GameApp:
         self.update_health_displays()
     
     def show_game_over(self):
+        
+        # Show restart button
+        self.restart_btn.Show()
+        self.panel.Refresh()
         """Show win/lose message box and restart button"""
         if self.you_win:
             wx.MessageBox("Congratulations! You Won!", "Victory", wx.OK | wx.ICON_INFORMATION)
         elif self.you_lose:
             wx.MessageBox("Game Over! You Lost!", "Defeat", wx.OK | wx.ICON_INFORMATION)
-        
-        # Show restart button
-        self.restart_btn.Show()
-        self.panel.Refresh()
     
     def handle_restart(self, event):
         """Reset the game"""
